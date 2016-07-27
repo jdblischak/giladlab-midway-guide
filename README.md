@@ -90,15 +90,43 @@ sbatch --mem=8000 --wrap="pwd"
 ## Accessing your files
 
 The [User Guide][guide] has thorough documentation on how to transfer
-files to and from Midway (see [Data Transfer][tranfer]). Briefly,
+files to and from Midway (see [Data Transfer][transfer]). Briefly,
 because there is no tunneling like the PPS cluster, it is much easier
 to transfer files via `scp`, WinSCP, or similar tools. You can also
 mount your Midway directories using Samba. This works well, but the
-main inconvenience is you have to sign into the [UChicago VPN][vpn] when
-working off-campus.
+main inconvenience is you have to sign into the [UChicago VPN][vpn]
+when working off-campus.
 
 [transfer]: https://rcc.uchicago.edu/docs/data-transfer/index.html
 [vpn]: https://cvpn.uchicago.edu/
+
+## RStudio Server
+
+The RCC runs an RStudio Server at
+https://rstudio.rcc.uchicago.edu. This service is still in beta
+testing, so it is not documented in the [User Guide][guide]. It is
+running R 3.2.1. By default, it looks for packages installed in
+`~/R_libs` and `/software/R-3.2-el6-x86_64/lib64/R/library`. To have a
+consistent environment on Midway, you need to complete the following
+two steps:
+
+1. Add the line `module load R/3.2` to your `.bashrc` file so that you
+are using the same version of R.
+
+2. Create a file named `.Renviron` in your home directory. It should
+contain the following text: `R_LIBS_USER=~/R_libs`.
+
+To confirm you have everything set up correctly, you can run the
+following commands. You should see the same results (with the
+exception of your username instead of mine).
+
+```
+Rscript --version
+# R scripting front-end version 3.2.1 Patched (2015-07-12 r68650)
+Rscript -e ".libPaths()"
+# [1] "/home/jdblischak/R_libs"
+# [2] "/software/R-3.2-el6-x86_64/lib64/R/library"
+```
 
 ## Getting help
 
