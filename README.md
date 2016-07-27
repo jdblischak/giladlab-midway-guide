@@ -88,3 +88,23 @@ sbatch --mem=8000 --wrap="pwd"
 ## SSH keys
 
 ## Accessing your files
+
+The [User Guide][guide] has thorough documentation on how to transfer
+files to and from Midway (see [Data Transfer][tranfer]). Briefly,
+because there is no tunneling like the PPS cluster, it is much easier
+to transfer files via `scp`, WinSCP, or similar tools. You can also
+mount your Midway directories using Samba. This works well, but the
+main inconvenience is you have to sign into the [UChicago VPN][vpn] when
+working off-campus.
+
+[transfer]: https://rcc.uchicago.edu/docs/data-transfer/index.html
+[vpn]: https://cvpn.uchicago.edu/
+
+## Getting help
+
+If you can't find a solution in the [User Guide][guide], send an email
+to `help@rcc.uchicago.edu` with a detailed description of your
+problem. If your problem is specific to how we organize our shared lab
+storage space, you can open an [Issue][] in this repository.
+
+[issue]: https://github.com/jdblischak/giladlab-midway-guide/issues
