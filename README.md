@@ -4,7 +4,7 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2016-07-27
+**Last updated:** 2016-07-28
 
 ## Introduction
 
@@ -82,10 +82,57 @@ flag:
 # echo "pwd" | qsub -l h_vmem=8g -cwd
 sbatch --mem=8000 --wrap="pwd"
 ```
+## Managing your data
+
+There are 3 main places to store your data: home, scratch, and
+project.
+
+1. Your home directory has a size limit of 25 GB, so it should be used
+mainly for storing code, configuration files, and installed software.
+
+2. You have 100 GB of scratch space at `/scratch/midway/<insert CNet
+ID>/`. There is also a symlink in your home directory named
+`scratch-midway`. You should use this space for intermediate data
+files that can be easily reproduced. Do not store any raw data here.
+
+3. Everyone in our lab shares 11 TB of space in our project directory
+`/project/gilad`. Once you start using Midway, you should create your
+own directory. As a convention, please use your CNet ID as the name of
+the directory.
+
+```
+mkdir /project/gilad/<insert CNet ID>
+```
+
+To view how much space you have available, run the command `quota`.
 
 ## Managing file permissions
 
+By default, your home directory is only viewable by you. This is
+inconvenient when collaborating with others. To make your home
+directory readable (but not writable) by all members of our lab,
+follow these steps:
+
+```
+chgrp -R pi-gilad ~
+chmod -R 750 ~
+```
+
+Your scratch space is also private by default. To make it readable
+(but not writable) by all members of our lab, follow similar steps as
+above:
+
+```
+chgrp -R pi-gilad /scratch/midway/<insert CNet ID>
+chmod -R 750 /scratch/midway/<insert CNet ID>
+```
+
+
 ## SSH keys
+
+## Installing software
+
+
 
 ## Accessing your files
 
