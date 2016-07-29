@@ -34,15 +34,7 @@ ssh <insert CNet ID>@midway.rcc.uchicago.edu
 
 [request]: https://rcc.uchicago.edu/getting-started/general-user-account-request
 
-## Quick start guide
-
-To get started immediately, first load some common software used by
-our lab. Midway uses Environment Modules, which you can learn more
-about below.
-
-```
-module load bedtools python R samtools subread
-```
+## Running jobs
 
 Midway uses a different job scheduler than PPS.  To start an
 interactive session like `ql`, type the following:
@@ -82,6 +74,20 @@ flag:
 # echo "pwd" | qsub -l h_vmem=8g -cwd
 sbatch --mem=8000 --wrap="pwd"
 ```
+
+To cancel a job, use `scancel`:
+
+```
+# cancel a specific job by ID
+scancel 12345
+# cancel all your current jobs
+scancel --user=<insert CNet ID>
+```
+
+For more details, see the documentation page [Using Midway][jobs].
+
+[jobs]: https://rcc.uchicago.edu/docs/using-midway/index.html#using-midway
+
 ## Managing your data
 
 There are 3 main places to store your data: home, scratch, and
@@ -152,40 +158,6 @@ also automatically be set so that any lab member can edit. Thus you
 will want to periodically run the above command, especially after
 creating lots of new files.
 
-## SSH keys
-
-Each time you login via `ssh`, you will be prompted to enter your
-password. To avoid this requirement, you can generate [SSH
-keys][ssh]. SSH keys are a form of encryption. You create a private
-key which is stored on your local computer. You then provide your
-public key to remote locations that you want to access without enter a
-password (e.g. Midway, GitHub, etc.). When you login via `ssh`, it
-will check to see if your local computer contains the private key that
-matches the public key.
-
-To create SSH keys, follow these [directions from GitHub][gh-ssh]. Once you have a public and private key on your local computer, create a new file in your home directory on Midway.
-
-```
-touch ~/.ssh/authorized_keys
-```
-
-Copy-paste the contents of id_rsa.pub on your local computer into this
-new file on Midway. Now you can login to Midway from this local
-computer without entering your CNet password. To set this up for an
-additional local computer, you need to create a new set of keys on
-this computer and then append the public key to the `authorized_keys`
-file.
-
-In general, it is advisable to keep your `.ssh` directory private,
-whcih can be accomplished with the following:
-
-```
-chmod -R 700 ~/.ssh
-```
-
-[ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
-[gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-
 ## Installing software
 
 Midway uses [Environment Modules][modules] to manage software
@@ -251,6 +223,40 @@ Rscript -e ".libPaths()"
 # [1] "/home/jdblischak/R_libs"
 # [2] "/software/R-3.2-el6-x86_64/lib64/R/library"
 ```
+
+## SSH keys
+
+Each time you login via `ssh`, you will be prompted to enter your
+password. To avoid this requirement, you can generate [SSH
+keys][ssh]. SSH keys are a form of encryption. You create a private
+key which is stored on your local computer. You then provide your
+public key to remote locations that you want to access without enter a
+password (e.g. Midway, GitHub, etc.). When you login via `ssh`, it
+will check to see if your local computer contains the private key that
+matches the public key.
+
+To create SSH keys, follow these [directions from GitHub][gh-ssh]. Once you have a public and private key on your local computer, create a new file in your home directory on Midway.
+
+```
+touch ~/.ssh/authorized_keys
+```
+
+Copy-paste the contents of id_rsa.pub on your local computer into this
+new file on Midway. Now you can login to Midway from this local
+computer without entering your CNet password. To set this up for an
+additional local computer, you need to create a new set of keys on
+this computer and then append the public key to the `authorized_keys`
+file.
+
+In general, it is advisable to keep your `.ssh` directory private,
+whcih can be accomplished with the following:
+
+```
+chmod -R 700 ~/.ssh
+```
+
+[ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
+[gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
 ## Getting help
 
