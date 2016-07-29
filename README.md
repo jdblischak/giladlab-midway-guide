@@ -145,7 +145,7 @@ chmod -R 750 /scratch/midway/<insert CNet ID>
 ```
 
 The files in the personal directory you create in our shared lab space
-are automatically readable and writeable by anyone in the lab. This is
+are automatically readable and writable by anyone in the lab. This is
 not ideal, because someone else could accidentally modify or delete
 your files. Similar to above, you can fix this will the following:
 
@@ -245,11 +245,11 @@ Copy-paste the contents of id_rsa.pub on your local computer into this
 new file on Midway. Now you can login to Midway from this local
 computer without entering your CNet password. To set this up for an
 additional local computer, you need to create a new set of keys on
-this computer and then append the public key to the `authorized_keys`
+that computer and then append the public key to the `authorized_keys`
 file.
 
 In general, it is advisable to keep your `.ssh` directory private,
-whcih can be accomplished with the following:
+which can be accomplished with the following:
 
 ```
 chmod -R 700 ~/.ssh
