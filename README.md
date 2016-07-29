@@ -4,7 +4,7 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2016-07-28
+**Last updated:** 2016-07-29
 
 ## Introduction
 
@@ -108,9 +108,20 @@ To view how much space you have available, run the command `quota`.
 
 ## Managing file permissions
 
-By default, your home directory is only viewable by you. This is
-inconvenient when collaborating with others. To make your home
-directory readable (but not writable) by all members of our lab,
+To make it easier for all lab members to collaborate, you will need to
+manually adjust the permissions for your files on Midway. If you are
+unfamiliar with Unix file permissions, see this [quick
+explanation][quick] (for more details see the [Wikipedia
+page][wiki]). The directions below will set the permissions such that
+anyone in our lab can read your files and execute the software you
+install. However, they will not have write permission, i.e. no one can
+edit, move, delete, or in anyway manipulate your files.
+
+[quick]: http://www.thinkplexx.com/learn/article/unix/command/chmod-permissions-flags-explained-600-0600-700-777-100-etc
+[wiki]: https://en.wikipedia.org/wiki/File_system_permissions
+
+By default, your home directory is only viewable by you. To make your
+home directory readable (but not writable) by all members of our lab,
 follow these steps:
 
 ```
@@ -127,12 +138,78 @@ chgrp -R pi-gilad /scratch/midway/<insert CNet ID>
 chmod -R 750 /scratch/midway/<insert CNet ID>
 ```
 
+The files in the personal directory you create in our shared lab space
+are automatically readable and writeable by anyone in the lab. This is
+not ideal, because someone else could accidentally modify or delete
+your files. Similar to above, you can fix this will the following:
+
+```
+chmod -R 750 /project/gilad/<insert CNet ID>
+```
+
+Unfortunately, as you create new files in the shared space, they will
+also automatically be set so that any lab member can edit. Thus you
+will want to periodically run the above command, especially after
+creating lots of new files.
 
 ## SSH keys
 
+Each time you login via `ssh`, you will be prompted to enter your
+password. To avoid this requirement, you can generate [SSH
+keys][ssh]. SSH keys are a form of encryption. You create a private
+key which is stored on your local computer. You then provide your
+public key to remote locations that you want to access without enter a
+password (e.g. Midway, GitHub, etc.). When you login via `ssh`, it
+will check to see if your local computer contains the private key that
+matches the public key.
+
+To create SSH keys, follow these [directions from GitHub][gh-ssh]. Once you have a public and private key on your local computer, create a new file in your home directory on Midway.
+
+```
+touch ~/.ssh/authorized_keys
+```
+
+Copy-paste the contents of id_rsa.pub on your local computer into this
+new file on Midway. Now you can login to Midway from this local
+computer without entering your CNet password. To set this up for an
+additional local computer, you need to create a new set of keys on
+this computer and then append the public key to the `authorized_keys`
+file.
+
+In general, it is advisable to keep your `.ssh` directory private,
+whcih can be accomplished with the following:
+
+```
+chmod -R 700 ~/.ssh
+```
+
+[ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
+[gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+
 ## Installing software
 
+Midway uses [Environment Modules][modules] to manage software
+installation. To see all the software they have available, run `module
+avail`. To load some common software used by our lab, run the
+following:
 
+```
+module load bedtools python R samtools subread
+```
+
+You could also add a line like this to your `.bashrc` file so that
+this software is always loaded when you login to Midway. See the
+documentation on [Software][] for more information.
+
+If software that you need is not already available via `module`, then
+you can simply install it locally for yourself and add it to your
+`PATH` variable in your `.bashrc`. If you are having trouble
+installing the software locally, or you think the software would be
+useful for many Midway users, you can request that RCC staff install
+it by emailing them at `help@rcc.uchicago.edu`.
+
+[modules]: http://modules.sourceforge.net/
+[software]: https://rcc.uchicago.edu/docs/software/index.html
 
 ## Accessing your files
 
