@@ -4,7 +4,7 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2016-07-29
+**Last updated:** 2016-08-17
 
 ## Introduction
 
@@ -36,12 +36,16 @@ ssh <insert CNet ID>@midway.rcc.uchicago.edu
 
 ## Running jobs
 
-Midway uses a different job scheduler than PPS.  To start an
-interactive session like `ql`, type the following:
+Midway uses a different job scheduler than PPS. Specifically, PPS uses
+[Sun Grid Engine][sge] and Midway uses [Slurm][]. To start an interactive
+session like `ql`, type the following:
 
 ```
 sinteractive
 ```
+
+[sge]: http://star.mit.edu/cluster/docs/0.93.3/guides/sge.html
+[Slurm]: http://slurm.schedmd.com/
 
 Conveniently, you will be in the same working directory in which you
 ran the command. By default, this requests a session with 1 GB of
@@ -49,7 +53,8 @@ RAM. You can specify the exact amount in MB uses the flag `--mem`:
 
 ```
 # Request 4 GB
-sinteractive --mem=4000
+sinteractive --mem=4g
+# Can specify as 4g, 4G, or 4000
 ```
 
 To submit a batch job from a shell script similar to `qsub`:
@@ -57,7 +62,7 @@ To submit a batch job from a shell script similar to `qsub`:
 ```
 # Equivalent of:
 # qsub -l h_vmem=8g -cwd script.sh
-sbatch --mem=8000 script.sh
+sbatch --mem=8g script.sh
 ```
 
 To view your jobs similar to `qstat`:
@@ -72,7 +77,7 @@ flag:
 ```
 # Equivalent of:
 # echo "pwd" | qsub -l h_vmem=8g -cwd
-sbatch --mem=8000 --wrap="pwd"
+sbatch --mem=8g --wrap="pwd"
 ```
 
 To cancel a job, use `scancel`:
