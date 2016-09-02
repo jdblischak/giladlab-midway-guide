@@ -276,6 +276,40 @@ chmod -R 700 ~/.ssh
 [ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
 [gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
+## Configuring Git
+
+Unfortunately [Bash auto-completion][git-auto] is not enabled on Midway, and the
+RCC staff do not want to enable it by default. If you plan to use Git on Midway,
+you can follow the steps below to avoid the tediousness of typing every single
+Git command.
+
+1. Download the bash completion script and save it as a hidden file in your home
+   directory:
+
+```
+wget -O ~/.git-completion.bash
+https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+```
+
+2. Add the following line to your `.bashrc` file to run the script every time you login:
+
+```
+# Enable bash-completion for Git
+source ~/.git-completion.bash
+```
+
+[git-auto]: https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks#Auto-Completion
+
+When you first start using Git on a new computer, it is recommended to set a
+global username and email. These are used to attribute your commits to you. For more instructions on getting started with Git, see the [Software Carpentry Git lesson][swc-git].
+
+```
+$ git config --global user.name "First Last"
+$ git config --global user.email "your.email@server.com"
+```
+
+[swc-git]: http://swcarpentry.github.io/git-novice/
+
 ## Getting help
 
 If you can't find a solution in the [User Guide][guide], send an email
