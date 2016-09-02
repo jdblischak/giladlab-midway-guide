@@ -229,6 +229,19 @@ Rscript -e ".libPaths()"
 # [2] "/software/R-3.2-el6-x86_64/lib64/R/library"
 ```
 
+## Jupyter Hub
+
+The RCC recently started running a Jupyter Hub server. You can login with your
+username and password at https://jupyter.rcc.uchicago.edu/hub. Note that it is
+running Python 3.5.
+
+```
+>>> import sys
+>>> print(sys.version)
+3.5.2 |Anaconda 4.1.1 (64-bit)| (default, Jul 2 2016, 17:53:06)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+```
+
 ## SSH keys
 
 Each time you login via `ssh`, you will be prompted to enter your
