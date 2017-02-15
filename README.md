@@ -4,7 +4,14 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2016-08-17
+**Last updated:** 2017-02-15
+
+**Warning:** RCC Midway has recently transitioned to be composed of both Midway1
+  (previously just Midway) and the new Midway2. Thus the intstructions below may
+  not always work depending on which version of Midway you are on. In general,
+  you should use Midway2 because it has newer infrastructure. However, it still
+  only has available a subset of the software available on Midway1, so if you've
+  already started a project, you should continue using Midway1.
 
 ## Introduction
 
@@ -30,6 +37,12 @@ your CNet ID and password.
 
 ```
 ssh <insert CNet ID>@midway.rcc.uchicago.edu
+```
+
+To log directly into Midway2, add the number 2 to the cluster name:
+
+```
+ssh <insert CNet ID>@midway2.rcc.uchicago.edu
 ```
 
 [request]: https://rcc.uchicago.edu/getting-started/general-user-account-request
@@ -89,13 +102,20 @@ scancel 12345
 scancel --user=<insert CNet ID>
 ```
 
+By default, a job will be sent to Midway1 (even from a Midway2 login node). To
+specifically send a job to Midway2, specify the partition:
+
+```
+sbatch --mem=8g --partition=broadwl script.sh
+```
+
 For more details, see the documentation page [Using Midway][jobs].
 
 [jobs]: https://rcc.uchicago.edu/docs/using-midway/index.html#using-midway
 
 ## Managing your data
 
-There are 3 main places to store your data: home, scratch, and
+There are 4 main places to store your data: home, scratch, and
 project.
 
 1. Your home directory has a size limit of 25 GB, so it should be used
@@ -107,13 +127,21 @@ ID>/`. There is also a symlink in your home directory named
 files that can be easily reproduced. Do not store any raw data here.
 
 3. Everyone in our lab shares 11 TB of space in our project directory
-`/project/gilad`. Once you start using Midway, you should create your
-own directory. As a convention, please use your CNet ID as the name of
-the directory.
+`/project/gilad`. Currently it is not regularly backed up, so make sure this is
+not the only place your have raw data stored. Once you start using Midway, you
+should create your own directory. As a convention, please use your CNet ID as
+the name of the directory.
 
 ```
 mkdir /project/gilad/<insert CNet ID>
 ```
+
+4. We have an additional 10 TB of space in `/project2/gilad`. This is the
+   preferred location to store new data because it is regularly backed up. The
+   old storage location `/project` is full, so it is no longer possible to
+   purchase additional space there. The data in `/project2/gilad` is
+   unaccessible from Midway1 compute nodes, so do not store data here if you are
+   using Midway1. Please create a subdirectory using your CNet ID.
 
 To view how much space you have available, run the command `quota`.
 
@@ -203,6 +231,10 @@ when working off-campus.
 
 ## RStudio Server
 
+**Warning:** This service is currently unavailable becaues it was too
+  unstable. RCC Staff is investigating how to best host this service. However in
+  the future it will likely only be offered on Midway2.
+
 The RCC runs an RStudio Server at
 https://rstudio.rcc.uchicago.edu. This service is still in beta
 testing, so it is not documented in the [User Guide][guide]. It is
@@ -272,6 +304,9 @@ which can be accomplished with the following:
 ```
 chmod -R 700 ~/.ssh
 ```
+
+This setup works for logging into both Midway1 and Midway2, so you only need to
+perform this once.
 
 [ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
 [gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
