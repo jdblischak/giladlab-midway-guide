@@ -4,7 +4,7 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2017-02-15
+**Last updated:** 2017-07-13
 
 **Warning:** RCC Midway has recently transitioned to be composed of both Midway1
   (previously just Midway) and the new Midway2. Thus the intstructions below may
@@ -115,16 +115,20 @@ For more details, see the documentation page [Using Midway][jobs].
 
 ## Managing your data
 
-There are 4 main places to store your data: home, scratch, and
-project.
+There are 4 main places to store your data: home, scratch, project and
+project2.
 
 1. Your home directory has a size limit of 25 GB, so it should be used
 mainly for storing code, configuration files, and installed software.
 
-2. You have 100 GB of scratch space at `/scratch/midway/<insert CNet
-ID>/`. There is also a symlink in your home directory named
-`scratch-midway`. You should use this space for intermediate data
-files that can be easily reproduced. Do not store any raw data here.
+2. If you are on Midway1, you have 100 GB of scratch space at
+`/scratch/midway/<insert CNet # ID>/`. There is also a symlink in your home
+directory named # `scratch-midway`. You should use this space for intermediate
+data # files that can be easily reproduced. Do not store any raw data here. If
+you are on Midway2, you have 100 GB of scratch space at
+`/scratch/midway2/<insert CNet ID>/`, and there is no shortcut in the home
+directory. You can only access the scratch space of the filesystem you are
+currently on.
 
 3. Everyone in our lab shares 11 TB of space in our project directory
 `/project/gilad`. Currently it is not regularly backed up, so make sure this is
@@ -136,7 +140,7 @@ the name of the directory.
 mkdir /project/gilad/<insert CNet ID>
 ```
 
-4. We have an additional 10 TB of space in `/project2/gilad`. This is the
+4. We have an additional 20 TB of space in `/project2/gilad`. This is the
    preferred location to store new data because it is regularly backed up. The
    old storage location `/project` is full, so it is no longer possible to
    purchase additional space there. The data in `/project2/gilad` is
@@ -280,18 +284,20 @@ Each time you login via `ssh`, you will be prompted to enter your
 password. To avoid this requirement, you can generate [SSH
 keys][ssh]. SSH keys are a form of encryption. You create a private
 key which is stored on your local computer. You then provide your
-public key to remote locations that you want to access without enter a
+public key to remote locations that you want to access without entering a
 password (e.g. Midway, GitHub, etc.). When you login via `ssh`, it
 will check to see if your local computer contains the private key that
 matches the public key.
 
-To create SSH keys, follow these [directions from GitHub][gh-ssh]. Once you have a public and private key on your local computer, create a new file in your home directory on Midway.
+To create SSH keys, follow these [directions from GitHub][gh-ssh]. Once you
+have a public and private key on your local computer, create a new file in your
+home directory on Midway.
 
 ```
 touch ~/.ssh/authorized_keys
 ```
 
-Copy-paste the contents of id_rsa.pub on your local computer into this
+Copy-paste the contents of `id_rsa.pub` on your local computer into this
 new file on Midway. Now you can login to Midway from this local
 computer without entering your CNet password. To set this up for an
 additional local computer, you need to create a new set of keys on
@@ -306,7 +312,7 @@ chmod -R 700 ~/.ssh
 ```
 
 This setup works for logging into both Midway1 and Midway2, so you only need to
-perform this once.
+perform this once per computer.
 
 [ssh]: https://en.wikipedia.org/wiki/Secure_Shell#Key_management
 [gh-ssh]: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
