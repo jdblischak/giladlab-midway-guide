@@ -109,9 +109,20 @@ specifically send a job to Midway2, specify the partition:
 sbatch --mem=8g --partition=broadwl script.sh
 ```
 
-For more details, see the documentation page [Using Midway][jobs].
+This table describes some of the most common options to pass to `sbatch` and
+`sinteractive`. For more details, see the documentation page [Using
+Midway][jobs].
 
 [jobs]: https://rcc.uchicago.edu/docs/using-midway/index.html#using-midway
+
+Option  | Example value(s) | Explanation
+------------- | ------------- | -------------
+`-e, --error=<filename pattern>` | name-err-%j.txt | Specify the name of the file to save the standard error stream. %j is the job ID.
+`-J, --job-name=<jobname>` | map-sample-1 | The job name is used to label the job in the `squeue` output.
+`--mem=<MB>` | 2000, 2G | Specify the amount of memory to request in megabytes. To specify in gigabytes, append the letter G.
+`-o, --output=<filename pattern>` | name-out-%j.txt | Specify the name of the file to save the standard output stream. %j is the job ID.
+`-p, --partition=<partition_names>` | broadwl | Default is to send jobs to Midway1. Specify broadwl to send to Midway2.
+`--wrap=<command string>` | pwd, "echo $PATH" | Instead of putting the commands in shell script, specificy them at the command line. Useful for quick debugging.
 
 ## Managing your data
 
