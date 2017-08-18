@@ -174,13 +174,38 @@ edit, move, delete, or in anyway manipulate your files.
 [quick]: http://www.thinkplexx.com/learn/article/unix/command/chmod-permissions-flags-explained-600-0600-700-777-100-etc
 [wiki]: https://en.wikipedia.org/wiki/File_system_permissions
 
+The files in the personal directory you create in our shared lab space
+are automatically readable and writable by anyone in the lab. This is
+not ideal, because someone else could accidentally modify or delete
+your files. To facilitate collaboration among lab members and remove
+the possibility of someone affecting your files, run the following 3
+commands. The first two commands make it so that both your directories
+and files are readable and writable by you but only readable by other
+lab members. The third makes it so that all gzipped FASTQ files are
+only readable by you and other lab members. This prevents you from
+accidentally deleting them.
+
+```
+find /project2/gilad/<insert CNet ID> -type d -print0 | xargs -0 chmod 750
+find /project2/gilad/<insert CNet ID> -type f -print0 | xargs -0 chmod 640
+find /project2/gilad/<insert CNet ID> -name "*.fastq.gz" -print0 | xargs -0 chmod 440
+```
+
+Unfortunately, as you create new files in the shared space, they will
+also automatically be set so that any lab member can edit. Thus you
+will want to periodically run the above 3 commands, especially after
+creating lots of new files.
+
 By default, your home directory is only viewable by you. To make your
 home directory readable (but not writable) by all members of our lab,
-follow these steps:
+first change the group to pi-gilad and then run the same commands as
+above:
 
 ```
 chgrp -R pi-gilad ~
-chmod -R 750 ~
+find ~ -type d -print0 | xargs -0 chmod 750
+find ~ -type f -print0 | xargs -0 chmod 640
+find ~ -name "*.fastq.gz" -print0 | xargs -0 chmod 440
 ```
 
 Your scratch space is also private by default. To make it readable
@@ -188,23 +213,11 @@ Your scratch space is also private by default. To make it readable
 above:
 
 ```
-chgrp -R pi-gilad /scratch/midway/<insert CNet ID>
-chmod -R 750 /scratch/midway/<insert CNet ID>
+chgrp -R pi-gilad /scratch/midway2/<insert CNet ID>
+find /scratch/midway2/<insert CNet ID> -type d -print0 | xargs -0 chmod 750
+find /scratch/midway2/<insert CNet ID> -type f -print0 | xargs -0 chmod 640
+find /scratch/midway2/<insert CNet ID> -name "*.fastq.gz" -print0 | xargs -0 chmod 440
 ```
-
-The files in the personal directory you create in our shared lab space
-are automatically readable and writable by anyone in the lab. This is
-not ideal, because someone else could accidentally modify or delete
-your files. Similar to above, you can fix this will the following:
-
-```
-chmod -R 750 /project/gilad/<insert CNet ID>
-```
-
-Unfortunately, as you create new files in the shared space, they will
-also automatically be set so that any lab member can edit. Thus you
-will want to periodically run the above command, especially after
-creating lots of new files.
 
 ## Installing software
 
