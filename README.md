@@ -210,14 +210,18 @@ find ~ -name "*.fastq.gz" -print0 | xargs -0 chmod 440
 
 Your scratch space is also private by default. To make it readable
 (but not writable) by all members of our lab, follow similar steps as
-above:
+above (with the exception that it doesn't make sense to write-protect
+any FASTQ files here since they are by definition temporary):
 
 ```
 chgrp -R pi-gilad /scratch/midway2/<insert CNet ID>
 find /scratch/midway2/<insert CNet ID> -type d -print0 | xargs -0 chmod 750
 find /scratch/midway2/<insert CNet ID> -type f -print0 | xargs -0 chmod 640
-find /scratch/midway2/<insert CNet ID> -name "*.fastq.gz" -print0 | xargs -0 chmod 440
 ```
+
+One potential warning. If you've installed software that created
+executable files, these commands will remove the executable
+permission.
 
 ## Installing software
 
