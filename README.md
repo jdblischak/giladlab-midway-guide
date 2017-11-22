@@ -61,7 +61,7 @@ sinteractive
 [Slurm]: http://slurm.schedmd.com/
 
 Conveniently, you will be in the same working directory in which you
-ran the command. By default, this requests a session with 1 GB of
+ran the command. By default, this requests a session with 2 GB of
 RAM. You can specify the exact amount in MB uses the flag `--mem`:
 
 ```
