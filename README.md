@@ -109,6 +109,22 @@ specifically send a job to Midway2, specify the partition:
 sbatch --mem=8g --partition=broadwl script.sh
 ```
 
+To run the job on the Gilad lab partition:
+
+```
+sbatch --mem=8g --partition=gilad script.sh
+```
+
+If your primary account is not pi-gilad (i.e. you first obtained an account with
+a different PI), then you will need to additionally specify the account:
+
+```
+sbatch --mem=8g --partition=gilad --account=pi-gilad script.sh
+```
+
+Please note that the Gilad lab partition consists of 1 node with 28 CPUs and 64
+GB of RAM. Thus it's not ideal for submitting entire analysis pipelines.
+
 This table describes some of the most common options to pass to `sbatch` and
 `sinteractive`. For more details, see the documentation page [Using
 Midway][jobs].
@@ -151,7 +167,7 @@ the name of the directory.
 mkdir /project/gilad/<insert CNet ID>
 ```
 
-4. We have an additional 20 TB of space in `/project2/gilad`. This is the
+4. We have an additional 20+ TB of space in `/project2/gilad`. This is the
    preferred location to store new data because it is regularly backed up. The
    old storage location `/project` is full, so it is no longer possible to
    purchase additional space there. The data in `/project2/gilad` is
@@ -263,35 +279,29 @@ when working off-campus.
 
 ## RStudio Server
 
-**Warning:** This service is currently unavailable becaues it was too
-  unstable. RCC Staff is investigating how to best host this service. However in
-  the future it will likely only be offered on Midway2.
+The Gilad lab partition is running an instance of RStudio Server. If you are a
+member of the pi-gilad account, go to
+https://cloud.rcc.uchicago.edu/rstudio_gilad/ and sign in with your CNet ID.
 
-The RCC runs an RStudio Server at
-https://rstudio.rcc.uchicago.edu. This service is still in beta
-testing, so it is not documented in the [User Guide][guide]. It is
-running R 3.2.1. By default, it looks for packages installed in
-`~/R_libs` and `/software/R-3.2-el6-x86_64/lib64/R/library`. To have a
-consistent environment on Midway, you need to complete the following
-two steps:
-
-1. Add the line `module load R/3.2` to your `.bashrc` file so that you
-are using the same version of R.
-
-2. Create a file named `.Renviron` in your home directory. It should
-contain the following text: `R_LIBS_USER=~/R_libs`.
-
-To confirm you have everything set up correctly, you can run the
-following commands. You should see the same results (with the
-exception of your username instead of mine).
+The version of R used by RStudio Server is not the same as that available in the
+Terminal. This will eventually start to cause you problems. I get around this by
+creating the file `.Rprofile` in my home directory and adding the following
+hack:
 
 ```
-Rscript --version
-# R scripting front-end version 3.2.1 Patched (2015-07-12 r68650)
-Rscript -e ".libPaths()"
-# [1] "/home/jdblischak/R_libs"
-# [2] "/software/R-3.2-el6-x86_64/lib64/R/library"
+if (Sys.getenv("R_HOME") == "/software/R-3.3-el7-x86_64/lib64/R") {
+  Sys.setenv(R_LIBS_USER = "~/R_libs")
+  .libPaths("~/R_libs")
+} else if (Sys.getenv("R_HOME") == "/usr/lib64/R") {
+  Sys.setenv(R_LIBS_USER = "~/RStudio_libs")
+  .libPaths("~/RStudio_libs")
+}
 ```
+
+This results in RStudio reading and writing packages to `~/RStudio_libs`, and
+the R in the Terminal reading and writing packages to `~/R_libs`. If you change
+the version of R you are using, you'll need to change
+`/software/R-3.3-el7-x86_64/lib64/R` to the output of `which R`.
 
 ## Jupyter Hub
 
