@@ -122,8 +122,9 @@ a different PI), then you will need to additionally specify the account:
 sbatch --mem=8g --partition=gilad --account=pi-gilad script.sh
 ```
 
-Please note that the Gilad lab partition consists of 1 node with 28 CPUs and 64
-GB of RAM. Thus it's not ideal for submitting entire analysis pipelines.
+Please note that the Gilad lab partition consists of 1 node
+(midway2-0439) with 28 CPUs and 128 GB of RAM. Thus it's not ideal for
+submitting entire analysis pipelines.
 
 This table describes some of the most common options to pass to `sbatch` and
 `sinteractive`. For more details, see the documentation page [Using
