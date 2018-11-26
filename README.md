@@ -4,7 +4,7 @@ John Blischak
 
 2016-07-27
 
-**Last updated:** 2017-07-13
+**Last updated:** 2018-11-25
 
 **Warning:** RCC Midway has recently transitioned to be composed of both Midway1
   (previously just Midway) and the new Midway2. Thus the intstructions below may
@@ -284,25 +284,14 @@ The Gilad lab partition is running an instance of RStudio Server. If you are a
 member of the pi-gilad account, go to
 https://cloud.rcc.uchicago.edu/rstudio_gilad/ and sign in with your CNet ID.
 
-The version of R used by RStudio Server is not the same as that available in the
-Terminal. This will eventually start to cause you problems. I get around this by
-creating the file `.Rprofile` in my home directory and adding the following
-hack:
-
-```
-if (Sys.getenv("R_HOME") == "/software/R-3.3-el7-x86_64/lib64/R") {
-  Sys.setenv(R_LIBS_USER = "~/R_libs")
-  .libPaths("~/R_libs")
-} else if (Sys.getenv("R_HOME") == "/usr/lib64/R") {
-  Sys.setenv(R_LIBS_USER = "~/RStudio_libs")
-  .libPaths("~/RStudio_libs")
-}
-```
-
-This results in RStudio reading and writing packages to `~/RStudio_libs`, and
-the R in the Terminal reading and writing packages to `~/R_libs`. If you change
-the version of R you are using, you'll need to change
-`/software/R-3.3-el7-x86_64/lib64/R` to the output of `which R`.
+The version of R used by RStudio Server is 3.4.3. To use the same version of R
+when running in the Terminal, run `module load R/3.4.3` (or add it to your
+`.bashrc` file). Due to new security restrictions, you cannot download anything
+from RStudio Server, which means you cannot install packages. Thus you will need
+to run R from a login node to install packages from CRAN, GitHub, etc. To ensure
+that you will be able to access the newly installed packages from RStudio
+Server, the easiest option is to install them in the default user directory
+`~/R/x86_64-pc-linux-gnu-library/3.4`.
 
 ## Jupyter Hub
 
