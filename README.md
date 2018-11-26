@@ -149,14 +149,9 @@ project2.
 1. Your home directory has a size limit of 25 GB, so it should be used
 mainly for storing code, configuration files, and installed software.
 
-2. If you are on Midway1, you have 100 GB of scratch space at
-`/scratch/midway/<insert CNet # ID>/`. There is also a symlink in your home
-directory named # `scratch-midway`. You should use this space for intermediate
-data # files that can be easily reproduced. Do not store any raw data here. If
-you are on Midway2, you have 100 GB of scratch space at
-`/scratch/midway2/<insert CNet ID>/`, and there is no shortcut in the home
-directory. You can only access the scratch space of the filesystem you are
-currently on.
+2. You have 100 GB of scratch space at `/scratch/midway2/<insert CNet ID>/`.
+You should use this space for intermediate data files that can be easily
+reproduced. Do not store any raw data here.
 
 3. Everyone in our lab shares 11 TB of space in our project directory
 `/project/gilad`. Currently it is not regularly backed up, so make sure this is
@@ -168,12 +163,10 @@ the name of the directory.
 mkdir /project/gilad/<insert CNet ID>
 ```
 
-4. We have an additional 20+ TB of space in `/project2/gilad`. This is the
-   preferred location to store new data because it is regularly backed up. The
-   old storage location `/project` is full, so it is no longer possible to
-   purchase additional space there. The data in `/project2/gilad` is
-   unaccessible from Midway1 compute nodes, so do not store data here if you are
-   using Midway1. Please create a subdirectory using your CNet ID.
+4. We have additional shared space in `/project2/gilad`. This is the preferred
+   location to store new data because it is regularly backed up. The old storage
+   location `/project` is full, so it is no longer possible to purchase
+   additional space there. Please create a subdirectory using your CNet ID.
 
 To view how much space you have available, run the command `quota`.
 
@@ -307,6 +300,8 @@ running Python 3.5.
 ```
 
 ## SSH keys
+
+**The RCC has disabled the creation of new SSH keys.**
 
 Each time you login via `ssh`, you will be prompted to enter your
 password. To avoid this requirement, you can generate [SSH
